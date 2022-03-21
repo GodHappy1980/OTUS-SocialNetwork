@@ -6,5 +6,9 @@
     <include file="/db/changelog/mysql/schema/schema.sql" context="schema_context"/>
 
     <include file="/db/changelog/mysql/schema/tables/user.sql"/>
+    <include file="/db/changelog/mysql/schema/tables/role.sql"/>
+    <include file="/db/changelog/mysql/schema/tables/user_role.sql"/>
+
+    <include file="/db/changelog/mysql/schema/data/role.sql"/>
 
 </databaseChangeLog>

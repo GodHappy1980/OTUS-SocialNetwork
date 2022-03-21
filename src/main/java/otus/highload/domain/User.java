@@ -1,8 +1,8 @@
 package otus.highload.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 //import java.util.List;
 
-@Entity
+//@Entity
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,8 +19,8 @@ import java.io.Serializable;
 public class User implements Serializable {
     static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     Integer id;
 
     String firstName;
