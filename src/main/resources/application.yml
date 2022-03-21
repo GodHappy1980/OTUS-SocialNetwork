@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Simple social network
+  sql:
+    init:
+      mode: never
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    contexts: "test,schema_context"
+    liquibase-schema: liquibase
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
