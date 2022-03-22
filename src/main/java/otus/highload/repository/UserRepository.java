@@ -1,7 +1,6 @@
 package otus.highload.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -82,6 +81,7 @@ public class UserRepository  {
                 new BeanPropertyRowMapper<>(User.class),
                 new Object[] {id}
         );
+        user.setRoles(findRolesByUser(user));
 
         return user;
     }

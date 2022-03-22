@@ -2,12 +2,15 @@ package otus.highload.controllers;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import otus.highload.domain.User;
+import otus.highload.domain.UserPrincipal;
 import otus.highload.dto.RegisterUserRequest;
 import otus.highload.dto.UserInfoDto;
 import otus.highload.service.UserService;
@@ -22,18 +25,19 @@ public class RegisterUserController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
-    public String register(/*Model model*/) {
-//        model.addAttribute("MESSAGE", "Hello");
-
+    public String register() {
         return "registerNewUser";
     }
 
     @PostMapping("/register")
-    public String registerUser(final RegisterUserRequest registerUserRequest, Model model) {
+    public String registerUser(final RegisterUserRequest registerUserRequest) {
         Optional<User> user = userService.registerUser(mapToUser(registerUserRequest));
         if (user.isPresent()) {
-            model.addAttribute("USER", mapToUserInfo(user.get()));
-            return "userInfo";
+            UserPrincipal principal = new UserPrincipal(user.get());
+            Authentication auth = new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
+            return "redirect:/userList";
         }
         else return "error";
     }

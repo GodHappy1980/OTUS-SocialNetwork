@@ -35,8 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
         .and().formLogin().defaultSuccessUrl("/userList")
         .and().logout();
-//                .and()
-//                .authorizeRequests().antMatchers().permitAll();
         httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().sameOrigin();
     }
