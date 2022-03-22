@@ -33,7 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/login*", "/logout", "/h2-console/**", "/register").permitAll()
                 .antMatchers("/user*").hasRole("USER")
                 .anyRequest().authenticated()
-        .and().formLogin().defaultSuccessUrl("/userList");
+        .and().formLogin().defaultSuccessUrl("/userList")
+        .and().logout();
 //                .and()
 //                .authorizeRequests().antMatchers().permitAll();
         httpSecurity.csrf().disable();

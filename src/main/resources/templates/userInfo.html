@@ -17,7 +17,7 @@
     </tr>
     <tr>
         <td>Gender:</td>
-        <td th:text="${USER.firstName}">gender name</td>
+        <td th:text="${USER.gender}">gender name</td>
     </tr>
     <tr>
         <td>Interests:</td>
@@ -26,6 +26,11 @@
     <tr>
         <td>City:</td>
         <td th:text="${USER.city}">city</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <a th:href="'/logout'">Logout</a>
+        </td>
     </tr>
 </table>
 

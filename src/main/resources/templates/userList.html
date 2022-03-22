@@ -8,11 +8,20 @@
 <h1>Users</h1>
 
 <table>
+    <tr>
+        <th>Details</th><th>First name</th><th>Last name</th><th>Gender</th><th>Interests</th><th>City</th>
+    </tr>
     <tr th:each="user : ${USERS}">
-        <td>First Name:</td>
+        <td><a th:href="'/userInfo?id=' + ${user.id}">more</a></td>
         <td th:text="${user.firstName}">first name</td>
+        <td th:text="${user.lastName}">last name</td>
+        <td th:text="${user.gender}">gender</td>
+        <td th:text="${user.interests}">interests</td>
+        <td th:text="${user.city}">city</td>
     </tr>
 </table>
+
+<a th:href="'/logout'">Logout</a>
 
 </body>
 </html>

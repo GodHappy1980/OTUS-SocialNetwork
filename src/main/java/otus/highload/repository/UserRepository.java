@@ -15,6 +15,7 @@ import otus.highload.mapper.RoleRowMapper;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -58,7 +59,6 @@ public class UserRepository  {
     }
 
     public Optional<User> findByLogin(String username) {
-
         List<User> users = jdbcTemplate.query(
                 SQL_FIND_USER_BY_LOGIN,
                 new BeanPropertyRowMapper<>(User.class),
@@ -67,11 +67,7 @@ public class UserRepository  {
 
         Optional<User> res = Optional.ofNullable(DataAccessUtils.singleResult(users));
 
-        res.ifPresent(u -> u.setRoles(jdbcTemplate.query(
-                SQL_FIND_ROLES_BY_USER_ID,
-                new RoleRowMapper(),
-                new Object[] {u.getId()})
-        ));
+        res.ifPresent(u -> u.setRoles(findRolesByUser(u)));
 
         return res;
     }
@@ -109,5 +105,27 @@ public class UserRepository  {
 
     public List<User> findAll() {
         return jdbcTemplate.query(SQL_FIND_ALL_USERS, new BeanPropertyRowMapper<>(User.class));
+    }
+
+    public Optional<User> findById(Integer userId) {
+        List<User> users = jdbcTemplate.query(
+                SQL_FIND_USER_BY_ID,
+                new BeanPropertyRowMapper<>(User.class),
+                new Object[]{userId}
+        );
+
+        Optional<User> res = Optional.ofNullable(DataAccessUtils.singleResult(users));
+
+        res.ifPresent(u -> u.setRoles(findRolesByUser(u)));
+
+        return res;
+    }
+
+    private Collection<Role> findRolesByUser(User user) {
+        return jdbcTemplate.query(
+                SQL_FIND_ROLES_BY_USER_ID,
+                new RoleRowMapper(),
+                new Object[] {user.getId()}
+        );
     }
 }
