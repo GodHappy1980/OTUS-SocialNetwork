@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class UserMapper implements RowMapper<User> {
+public class UserRowMapper implements RowMapper<User> {
     @Override
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 
@@ -20,6 +20,7 @@ public class UserMapper implements RowMapper<User> {
                 .city(rs.getString("city"))
                 .login(rs.getString("login"))
                 .password(rs.getString("password"))
+                .enabled(rs.getBoolean("enabled"))
                 .build();
     }
 }

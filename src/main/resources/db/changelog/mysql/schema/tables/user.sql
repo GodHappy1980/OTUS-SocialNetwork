@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS accounts.user (
     interests  VARCHAR(255),
     city  VARCHAR(60),
     login  VARCHAR(60) NOT NULL ,
-    password VARCHAR(60) NOT NULL,
+    password VARCHAR(128) NOT NULL,
+    enabled BIT NOT NULL DEFAULT FALSE,
     CONSTRAINT user_pk PRIMARY KEY (id),
-    CONSTRAINT user_login_unq UNIQUE (login)
+    CONSTRAINT user_username_unq UNIQUE (login)
 );

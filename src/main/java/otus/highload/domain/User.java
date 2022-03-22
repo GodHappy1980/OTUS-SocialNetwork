@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Collection;
 //import java.util.List;
 
 //@Entity
@@ -21,23 +22,27 @@ public class User implements Serializable {
 
 //    @Id
 //    @GeneratedValue
-    Integer id;
+    private Integer id;
 
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
-    String gender;
+    private String gender;
 
     //либо аттрибут User - строка, либо отдельная табличка
-    //List<String> interests;
+    //private List<String> interests;
     //по простому - пусть будет простая строка
-    String interests;
+    private String interests;
 
-    String city;
+    private String city;
 
-    String login;
+    private String login;
 
     //Надо бы ignore
-    String password;
+    private String password;
+
+    private boolean enabled;
+
+    private Collection<Role> roles;
 }

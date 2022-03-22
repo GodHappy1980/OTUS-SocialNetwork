@@ -1,8 +1,10 @@
 package otus.highload.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class UserInfoDto {
     Integer id;
 

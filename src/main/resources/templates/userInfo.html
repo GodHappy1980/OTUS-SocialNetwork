@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Info</title>
+</head>
+<body>
+
+<h1>User Info</h1>
+<table>
+    <tr>
+        <td>First name:</td>
+        <td th:text="${USER.firstName}">first name</td>
+    </tr>
+    <tr>
+        <td>Last name:</td>
+        <td th:text="${USER.lastName}">last name</td>
+    </tr>
+    <tr>
+        <td>Gender:</td>
+        <td th:text="${USER.firstName}">gender name</td>
+    </tr>
+    <tr>
+        <td>Interests:</td>
+        <td th:text="${USER.interests}">interests</td>
+    </tr>
+    <tr>
+        <td>City:</td>
+        <td th:text="${USER.city}">city</td>
+    </tr>
+</table>
+
+</body>
+</html>

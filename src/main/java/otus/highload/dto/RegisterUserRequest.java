@@ -6,18 +6,18 @@ import java.util.List;
 
 @Data
 public class RegisterUserRequest {
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
-    String gender;
+    private String gender;
 
-    //List<String> interests;
-    String interests;
+    //private List<String> interests;
+    private String interests;
 
-    String city;
+    private String city;
 
-    String login;
+    private String login;
 
-    String password;
+    private String password;
 }
