@@ -1,38 +1,45 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>User Info</title>
-</head>
-<body>
+    <head>
+        <title>User Info</title>
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css}" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>User Info</h1>
+            <table class="table">
+                <tr>
+                    <td>First name:</td>
+                    <td th:text="${USER.firstName}">first name</td>
+                </tr>
+                <tr>
+                    <td>Last name:</td>
+                    <td th:text="${USER.lastName}">last name</td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td th:text="${USER.gender}">gender name</td>
+                </tr>
+                <tr>
+                    <td>Interests:</td>
+                    <td th:text="${USER.interests}">interests</td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td th:text="${USER.city}">city</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/userList'}" role="button">User list</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/logout'}" role="button">Logout</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-<h1>User Info</h1>
-<table>
-    <tr>
-        <td>First name:</td>
-        <td th:text="${USER.firstName}">first name</td>
-    </tr>
-    <tr>
-        <td>Last name:</td>
-        <td th:text="${USER.lastName}">last name</td>
-    </tr>
-    <tr>
-        <td>Gender:</td>
-        <td th:text="${USER.gender}">gender name</td>
-    </tr>
-    <tr>
-        <td>Interests:</td>
-        <td th:text="${USER.interests}">interests</td>
-    </tr>
-    <tr>
-        <td>City:</td>
-        <td th:text="${USER.city}">city</td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <a th:href="'/logout'">Logout</a>
-        </td>
-    </tr>
-</table>
+        <script th:src="@{/webjars/bootstrap/4.0.0-beta/js/bootstrap.min.js}"></script>
 
-</body>
+    </body>
 </html>

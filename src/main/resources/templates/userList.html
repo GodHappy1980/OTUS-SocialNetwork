@@ -1,27 +1,35 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Users</title>
-</head>
-<body>
+    <head>
+        <title>Users</title>
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css}" />
+    </head>
+    <body>
 
-<h1>Users</h1>
+        <h1>Users</h1>
 
-<table>
-    <tr>
-        <th>Details</th><th>First name</th><th>Last name</th><th>Gender</th><th>Interests</th><th>City</th>
-    </tr>
-    <tr th:each="user : ${USERS}">
-        <td><a th:href="'/userInfo?id=' + ${user.id}">more</a></td>
-        <td th:text="${user.firstName}">first name</td>
-        <td th:text="${user.lastName}">last name</td>
-        <td th:text="${user.gender}">gender</td>
-        <td th:text="${user.interests}">interests</td>
-        <td th:text="${user.city}">city</td>
-    </tr>
-</table>
+        <table class="table">
+            <tr>
+                <th>Details</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Gender</th>
+                <th>Interests</th>
+                <th>City</th>
+            </tr>
+            <tr th:each="user : ${USERS}">
+                <td><a class="btn btn-primary" th:href="'/userInfo?id=' + ${user.id}">more</a></td>
+                <td th:text="${user.firstName}">first name</td>
+                <td th:text="${user.lastName}">last name</td>
+                <td th:text="${user.gender}">gender</td>
+                <td th:text="${user.interests}">interests</td>
+                <td th:text="${user.city}">city</td>
+            </tr>
+        </table>
+        <div>
+            <a class="btn btn-primary" th:href="@{'/logout'}" role="button">Logout</a>
+        </div>
 
-<a th:href="'/logout'">Logout</a>
-
-</body>
+        <script th:src="@{/webjars/bootstrap/4.0.0-beta/js/bootstrap.min.js}"></script>
+    </body>
 </html>

@@ -2,6 +2,7 @@ package otus.highload.controllers;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,9 @@ import otus.highload.dto.RegisterUserRequest;
 import otus.highload.dto.UserInfoDto;
 import otus.highload.service.UserService;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
@@ -24,18 +28,24 @@ public class RegisterUserController {
 
     private final PasswordEncoder passwordEncoder;
 
+//    @Resource(name="authenticationManager")
+//    private final AuthenticationManager authManager;
+
     @GetMapping("/register")
     public String register() {
         return "registerNewUser";
     }
 
     @PostMapping("/register")
-    public String registerUser(final RegisterUserRequest registerUserRequest) {
+    public String registerUser(final RegisterUserRequest registerUserRequest, final HttpServletRequest request) {
         Optional<User> user = userService.registerUser(mapToUser(registerUserRequest));
         if (user.isPresent()) {
             UserPrincipal principal = new UserPrincipal(user.get());
             Authentication auth = new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
+//            authManager.authenticate(auth);
             SecurityContextHolder.getContext().setAuthentication(auth);
+//            HttpSession session = request.getSession(true);
+//            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 
             return "redirect:/userList";
         }

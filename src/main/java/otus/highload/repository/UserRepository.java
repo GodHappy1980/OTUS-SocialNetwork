@@ -18,6 +18,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 @RequiredArgsConstructor
@@ -95,7 +97,11 @@ public class UserRepository  {
 
         if (role != null) {
             Number id = insertUserRole.executeAndReturnKey(
-                    Map.of("USER_ID", userId, "ROLE_ID", role.getId())
+                    //Map.of("USER_ID", userId, "ROLE_ID", role.getId())
+                    Stream.of(new Object[][] {
+                            { "USER_ID", userId },
+                            { "ROLE_ID", role.getId() },
+                    }).collect(Collectors.toMap(data -> (String)data[0], data -> (Number)data[1]))
             );
 
             if (id == null)
