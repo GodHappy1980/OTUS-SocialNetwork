@@ -20,4 +20,6 @@ public class UserInfoDto {
     String interests;
 
     String city;
+
+    String login;
 }

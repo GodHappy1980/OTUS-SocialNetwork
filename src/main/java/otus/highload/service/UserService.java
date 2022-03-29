@@ -17,7 +17,10 @@ public class UserService {
     public Optional<User> registerUser(final User userToRegister) {
 
         try {
-            return Optional.ofNullable(userRepository.create(userToRegister));
+            User user = userRepository.create(userToRegister);
+            userRepository.grantRole(user.getId(), "ROLE_USER");
+            user.setRoles(userRepository.findRolesByUserId(user.getId()));
+            return Optional.ofNullable(user);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -26,10 +29,22 @@ public class UserService {
     }
 
     public Optional<User> findById(Integer id) {
-        return userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
+        user.ifPresent(u -> u.setRoles(userRepository.findRolesByUserId(u.getId())));
+        return user;
+    }
+
+    public Optional<User> findByUserName(String userName) {
+        Optional<User> res = userRepository.findByLogin(userName);
+        res.ifPresent(u -> u.setRoles(userRepository.findRolesByUserId(u.getId())));
+        return res;
     }
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public boolean updateUser(User user) {
+        return userRepository.update(user);
     }
 }

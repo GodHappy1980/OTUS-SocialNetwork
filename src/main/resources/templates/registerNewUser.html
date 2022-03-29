@@ -5,49 +5,51 @@
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css}" />
     </head>
     <body>
-        <h1>Register</h1>
-        <h3>Enter user name and password:</h3>
-        <form name='f' th:action="@{/register}" method='POST'>
-            <table class="table">
-                <tr>
-                    <td>First name:</td>
-                    <td><input type="text" name="firstName"/></td>
-                </tr>
-                <tr>
-                    <td>Last name:</td>
-                    <td><input type="text" name="lastName"/></td>
-                </tr>
-                <tr>
-                    <td>Gender:</td>
-                    <td>
-                        <select name="gender">
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Interests:</td>
-                    <td><input type="text" name="interests"/></td>
-                </tr>
-                <tr>
-                    <td>City:</td>
-                    <td><input type="text" name="city"/></td>
-                </tr>
-                <tr>
-                    <td>User:</td>
-                    <td><input type="text" name="login" value=''></td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td><input type="password" name="password" /></td>
-                </tr>
-                <tr>
-                    <td><input class="btn btn-primary" name="submit" type="submit" value="submit" /></td>
-                </tr>
-            </table>
-        </form>
+        <div class="container">
+            <h1>Register</h1>
+            <h3>Enter user name and password:</h3>
+            <form name='f' th:action="@{/register}" method='POST'>
+                <table class="table">
+                    <tr>
+                        <td><label for="firstName">First name:</label></td>
+                        <td><input type="text" name="firstName" id="firstName"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="lastName">Last name:</label></td>
+                        <td><input type="text" name="lastName" id="lastName"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="gender">Gender:</label></td>
+                        <td>
+                            <select name="gender" id="gender">
+                                <option th:value="'M'" th:text="Male"></option>
+                                <option th:value="'F'" th:text="Female"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="interests">Interests:</label></td>
+                        <td><input type="text" name="interests" id="interests"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="city">City:</label></td>
+                        <td><input type="text" name="city" id="city"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="login">User:</label></td>
+                        <td><input type="text" name="login" id="login"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password:</label></td>
+                        <td><input type="password" name="password" id="password"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input class="btn btn-primary" name="submit" type="submit" value="submit" /></td>
+                    </tr>
+                </table>
+            </form>
 
+        </div>
         <script th:src="@{/webjars/bootstrap/4.0.0-beta/js/bootstrap.min.js}"></script>
 
     </body>

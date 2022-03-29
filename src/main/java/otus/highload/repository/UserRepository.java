@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -37,6 +36,17 @@ public class UserRepository  {
     private static final String SQL_FIND_ROLE_BY_NAME = "SELECT * FROM accounts.role WHERE name = ?";
 
     private static final String SQL_FIND_ALL_USERS = "SELECT * FROM accounts.user";
+    private static final String SQL_UPDATE_USER =
+            "UPDATE accounts.user u" +
+            "   SET u.first_name = ?" +
+            "      ,u.last_name = ?" +
+            "      ,u.gender = ?" +
+            "      ,u.interests = ?" +
+            "      ,u.city = ?" +
+            "      ,u.login = ?" +
+            "      ,u.password = ?" +
+            "      ,u.enabled = ?" +
+            " WHERE u.id = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -45,6 +55,7 @@ public class UserRepository  {
     private SimpleJdbcInsert insertUser;
 
     private SimpleJdbcInsert insertUserRole;
+
 
     @PostConstruct
     public void setup() {
@@ -68,27 +79,22 @@ public class UserRepository  {
 
         Optional<User> res = Optional.ofNullable(DataAccessUtils.singleResult(users));
 
-        res.ifPresent(u -> u.setRoles(findRolesByUser(u)));
-
         return res;
     }
 
     public User create(final User userToCreate) throws SQLException {
         Number id = insertUser.executeAndReturnKey(new BeanPropertySqlParameterSource(userToCreate));
 
-        grantRole(id, "ROLE_USER");
-
         User user = jdbcTemplate.queryForObject(
                 SQL_FIND_USER_BY_ID,
                 new BeanPropertyRowMapper<>(User.class),
                 new Object[] {id}
         );
-        user.setRoles(findRolesByUser(user));
 
         return user;
     }
 
-    private void grantRole(Number userId, String roleName) throws SQLException {
+    public Optional<Role> grantRole(Number userId, String roleName) throws SQLException {
         Role role = DataAccessUtils.singleResult(jdbcTemplate.query(
                 SQL_FIND_ROLE_BY_NAME,
                 new BeanPropertyRowMapper<>(Role.class),
@@ -107,6 +113,8 @@ public class UserRepository  {
             if (id == null)
                 throw new SQLException("Could create link between user and role");
         }
+
+        return Optional.ofNullable(role);
     }
 
     public List<User> findAll() {
@@ -122,16 +130,28 @@ public class UserRepository  {
 
         Optional<User> res = Optional.ofNullable(DataAccessUtils.singleResult(users));
 
-        res.ifPresent(u -> u.setRoles(findRolesByUser(u)));
-
         return res;
     }
 
-    private Collection<Role> findRolesByUser(User user) {
+    public Collection<Role> findRolesByUserId(Integer userId) {
         return jdbcTemplate.query(
                 SQL_FIND_ROLES_BY_USER_ID,
                 new RoleRowMapper(),
-                new Object[] {user.getId()}
+                new Object[] {userId}
         );
+    }
+
+    public boolean update(User user) {
+        return jdbcTemplate.update(SQL_UPDATE_USER, new Object[] {
+                user.getFirstName(),
+                user.getLastName(),
+                user.getGender(),
+                user.getInterests(),
+                user.getCity(),
+                user.getLogin(),
+                user.getPassword(),
+                user.isEnabled(),
+                user.getId()
+        }) > 0;
     }
 }

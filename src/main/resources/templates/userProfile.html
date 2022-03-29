@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Info</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" th:href="@{'/userList'}">User list</a>
+            <div class="navbar-nav mr-auto"></div>
+            <a class="btn btn-primary" th:href="@{'/logout'}" role="button">Logout</a>
+        </div>
+    </nav>
+
+    <h1>User Profile</h1>
+    <form name='f' th:action="@{/profile}" method='POST'>
+        <input type="hidden" name="id" th:value="${user.id}"/>
+        <table class="table">
+            <tr>
+                <td><label for="firstName">First name:</label></td>
+                <td><input type="text" name="firstName" id="firstName" th:value="${user.firstName}"/></td>
+            </tr>
+            <tr>
+                <td><label for="lastName">Last name:</label></td>
+                <td><input type="text" name="lastName" id="lastName" th:value="${user.lastName}"/></td>
+            </tr>
+            <tr>
+                <td><label for="gender">Gender:</label></td>
+                <td>
+                    <select name="gender" id="gender" th:value="${user.gender}">
+                        <option th:value="'M'" th:text="Male"></option>
+                        <option th:value="'F'" th:text="Female"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="interests">Interests:</label></td>
+                <td><input type="text" name="interests" id="interests" th:value="${user.interests}"/></td>
+            </tr>
+            <tr>
+                <td><label for="city">City:</label></td>
+                <td><input type="text" name="city" id="city" th:value="${user.city}"/></td>
+            </tr>
+            <tr>
+                <td><label for="login">User:</label></td>
+                <td><input type="text" name="login" id="login" th:value="${user.login}"></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" name="password" id="password"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input class="btn btn-primary" name="submit" type="submit" value="submit" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script th:src="@{/webjars/bootstrap/4.0.0-beta/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
