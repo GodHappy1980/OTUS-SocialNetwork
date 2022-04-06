@@ -48,6 +48,13 @@ public class UserRepository  {
             "      ,u.enabled = ?" +
             " WHERE u.id = ?";
 
+    private static final String SQL_FIND_FRIENDS_BY_USER_ID =
+            "SELECT u.* " +
+            "  FROM accounts.user u" +
+            "      ,accounts.friendship f " +
+            " WHERE f.src_user_id = ?" +
+            "   AND f.dst_user_id = u.id";
+
     private final JdbcTemplate jdbcTemplate;
 
     private final DataSource dataSource;
@@ -153,5 +160,13 @@ public class UserRepository  {
                 user.isEnabled(),
                 user.getId()
         }) > 0;
+    }
+
+    public List<User> findFriendsById(Integer srcUserId) {
+        return jdbcTemplate.query(
+                SQL_FIND_FRIENDS_BY_USER_ID,
+                new BeanPropertyRowMapper<>(User.class),
+                new Object[]{srcUserId}
+        );
     }
 }

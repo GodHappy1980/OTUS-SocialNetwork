@@ -22,34 +22,43 @@
             <table class="table">
                 <tr>
                     <td>First name:</td>
-                    <td th:text="${USER.firstName}">first name</td>
+                    <td th:text="${user.firstName}">first name</td>
                 </tr>
                 <tr>
                     <td>Last name:</td>
-                    <td th:text="${USER.lastName}">last name</td>
+                    <td th:text="${user.lastName}">last name</td>
                 </tr>
                 <tr>
                     <td>Gender:</td>
                     <td>
-                        <select th:value="${USER.gender}">
-<!--                            <option th:if="${USER.gender eq 'M'}" th:value="'M'" th:text="Male"></option>-->
-<!--                            <option th:if="${USER.gender eq 'F'}" th:value="'F'" th:text="Female"></option>-->
-                            <option th:disabled="${USER.gender ne 'M'}" th:value="'M'" th:text="Male"></option>
-                            <option th:disabled="${USER.gender ne 'F'}" th:value="'F'" th:text="Female"></option>
+                        <select th:value="${user.gender}">
+<!--                            <option th:if="${user.gender eq 'M'}" th:value="'M'" th:text="Male"></option>-->
+<!--                            <option th:if="${user.gender eq 'F'}" th:value="'F'" th:text="Female"></option>-->
+                            <option th:disabled="${user.gender ne 'M'}" th:value="'M'" th:text="Male"></option>
+                            <option th:disabled="${user.gender ne 'F'}" th:value="'F'" th:text="Female"></option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Interests:</td>
-                    <td th:text="${USER.interests}">interests</td>
+                    <td th:text="${user.interests}">interests</td>
                 </tr>
                 <tr>
                     <td>City:</td>
-                    <td th:text="${USER.city}">city</td>
+                    <td th:text="${user.city}">city</td>
                 </tr>
                 <tr>
                     <td>Login:</td>
-                    <td th:text="${USER.login}">city</td>
+                    <td th:text="${user.login}">city</td>
+                </tr>
+                <tr th:if="${!currentUser}">
+                    <td colspan="2">
+                        <form action="#" th:action="@{/friends}" method="post" th:name="f">
+                            <input type="hidden" name="dstUserId" th:value="${user.id}"/>
+                            <input type="hidden" name="action" th:value="${user.friend} ? 'remove' : 'add'">
+                            <button class="btn btn-primary" type="submit" th:text="${user.friend} ? 'Remove' : 'Add friend'"/>
+                        </form>
+                    </td>
                 </tr>
             </table>
         </div>

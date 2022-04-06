@@ -22,4 +22,6 @@ public class UserInfoDto {
     String city;
 
     String login;
+
+    Boolean friend;
 }
