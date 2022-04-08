@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Sing In/Up</title>
+        <script th:src="@{/webjars/jquery/jquery.min.js}" type="text/javascript"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" media="all" type="text/css"/>
+        <link th:href="@{/css/login.css}" rel="stylesheet" media="all" type="text/css">
+    </head>
+    <body>
+        <div class="container">
+            <form class="form-signin" th:method="post" th:action="@{/login}" action="#">
+                <h2 class="form-signin-heading">Please sign in</h2>
+                <div class="alert alert-danger" role="alert">Error messages</div>
+                <p>
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+                </p>
+                <p>
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+                </p>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="'Sing in'">Sign in</button>
+                <a class="btn btn-lg btn-primary btn-block" th:href="@{'/register'}" role="button" th:text="'Sing up'">Sign up</a>
+            </form>
+        </div>
+    </body>
+</html>
