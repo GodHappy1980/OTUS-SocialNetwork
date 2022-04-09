@@ -1,12 +1,12 @@
 package otus.highload.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 //import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -38,20 +38,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/", "/login*", "/logout", "/register", "/h2-console/**", "/webjars/**", "/css/**").permitAll()
+                .requestMatchers(
+                        PathRequest.toH2Console(),
+                        PathRequest.toStaticResources().atCommonLocations()
+                ).permitAll()
+                .antMatchers("/", "/register"/*, "/login*", "/logout", "/h2-console/**", "/webjars/**", "/css/**"*/).permitAll()
                 .antMatchers("/user*").hasRole("USER")
                 .anyRequest().authenticated()
-        .and().formLogin().loginPage("/login").defaultSuccessUrl("/userList")
-        .and().logout().logoutSuccessUrl("/login");
+                .and().formLogin().loginPage("/login").defaultSuccessUrl("/userList").permitAll()
+                .and().logout().logoutSuccessUrl("/login").permitAll();
         httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().sameOrigin();
     }
-
-//    @Override
-//    public void configure(WebSecurity web) {
-//        web
-//                .ignoring()
-//                .antMatchers("/resources/**", "/static/**", "/static/css/**", "/js/**", "/images/**","/vendor/**","/fonts/**");
-//    }
-
 }
