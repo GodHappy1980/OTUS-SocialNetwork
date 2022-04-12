@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://92.124.137.38:3306/accounts?createDatabaseIfNotExist=true
+    url: jdbc:mysql://92.124.137.38:3306/accounts?createDatabaseIfNotExist=true&generateSimpleParameterMetadata=true
     username: ssn_user
     password: qwe1234
     driver-class-name: com.mysql.cj.jdbc.Driver
