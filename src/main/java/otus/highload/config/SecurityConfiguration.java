@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
                 .requestMatchers(
-                        PathRequest.toH2Console(),
+                        //PathRequest.toH2Console(),
                         PathRequest.toStaticResources().atCommonLocations()
                 ).permitAll()
                 .antMatchers("/", "/register"/*, "/login*", "/logout", "/h2-console/**", "/webjars/**", "/css/**"*/).permitAll()

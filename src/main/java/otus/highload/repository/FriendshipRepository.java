@@ -35,7 +35,8 @@ public class FriendshipRepository {
     @PostConstruct
     public void setup() {
         insertFriendship = new SimpleJdbcInsert(dataSource)
-                .withSchemaName("accounts")
+                .withCatalogName("accounts")
+                //.withSchemaName("accounts")
                 .withTableName("friendship")
                 .usingGeneratedKeyColumns("id");
     }

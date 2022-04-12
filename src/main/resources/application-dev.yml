@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://92.124.137.38:3306/accounts?createDatabaseIfNotExist=true
+    username: ssn_user
+    password: qwe1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    contexts: "dev,schema_context"
+    liquibase-schema: accounts

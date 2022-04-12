@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:file:~/h2/testsndb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;INIT=CREATE SCHEMA IF NOT EXISTS liquibase;
+    url: jdbc:h2:file:~/h2/testsndb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;INIT=CREATE SCHEMA IF NOT EXISTS liquibase\;CREATE SCHEMA IF NOT EXISTS accounts;
     username: sa
     password: qwe1234
     driver-class-name: org.h2.Driver
