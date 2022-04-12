@@ -67,14 +67,14 @@ public class UserRepository  {
     @PostConstruct
     public void setup() {
         insertUser = new SimpleJdbcInsert(dataSource)
-                .withCatalogName("accounts")
-                .withSchemaName("accounts")
+                //.withCatalogName("accounts")
+                //.withSchemaName("accounts")
                 .withTableName("user")
                 .usingGeneratedKeyColumns("id");
 
         insertUserRole = new SimpleJdbcInsert(dataSource)
-                .withCatalogName("accounts")
-                .withSchemaName("accounts")
+                //.withCatalogName("accounts")
+                //.withSchemaName("accounts")
                 .withTableName("user_role")
                 .usingGeneratedKeyColumns("id");
     }
