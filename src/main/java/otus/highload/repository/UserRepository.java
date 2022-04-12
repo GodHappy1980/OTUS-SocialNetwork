@@ -69,13 +69,13 @@ public class UserRepository  {
         insertUser = new SimpleJdbcInsert(dataSource)
                 .withCatalogName("accounts")
                 //.withSchemaName("accounts")
-                .withTableName("user")
+                .withTableName("accounts.user")
                 .usingGeneratedKeyColumns("id");
 
         insertUserRole = new SimpleJdbcInsert(dataSource)
                 .withCatalogName("accounts")
                 //.withSchemaName("accounts")
-                .withTableName("user_role")
+                .withTableName("accounts.user_role")
                 .usingGeneratedKeyColumns("id");
     }
 

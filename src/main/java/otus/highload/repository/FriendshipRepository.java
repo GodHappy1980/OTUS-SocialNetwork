@@ -37,7 +37,7 @@ public class FriendshipRepository {
         insertFriendship = new SimpleJdbcInsert(dataSource)
                 .withCatalogName("accounts")
                 //.withSchemaName("accounts")
-                .withTableName("friendship")
+                .withTableName("accounts.friendship")
                 .usingGeneratedKeyColumns("id");
     }
 
