@@ -35,7 +35,7 @@ public class UserRepository  {
 
     private static final String SQL_FIND_ROLE_BY_NAME = "SELECT * FROM accounts.role WHERE name = ?";
 
-    private static final String SQL_FIND_ALL_USERS = "SELECT * FROM accounts.user";
+    private static final String SQL_FIND_ALL_USERS = "SELECT * FROM accounts.user LIMIT 1000";
     private static final String SQL_UPDATE_USER =
             "UPDATE accounts.user u" +
             "   SET u.first_name = ?" +
@@ -54,6 +54,30 @@ public class UserRepository  {
             "      ,accounts.friendship f " +
             " WHERE f.src_user_id = ?" +
             "   AND f.dst_user_id = u.id";
+
+    private final static String SQL_FIND_USER_BY_FIRST_NAME_AND_LAST_NAME =
+            "SELECT *" +
+            "  FROM accounts.user" +
+            " WHERE first_name like ?" +
+            "   AND last_name like ?" +
+            " ORDER BY id";
+
+    private final static String SQL_FIND_USER_BY_FIRST_NAME_AND_LAST_NAME_AND_LIMIT =
+            "SELECT *" +
+                    "  FROM accounts.user" +
+                    " WHERE first_name like ?" +
+                    "   AND last_name like ?" +
+                    " ORDER BY id" +
+                    " LIMIT ?";
+
+    private final static String SQL_FIND_USER_BY_FIRST_NAME_AND_LAST_NAME_AND_LIMIT_AND_OFFSET =
+            "SELECT *" +
+                    "  FROM accounts.user" +
+                    " WHERE first_name like ?" +
+                    "   AND last_name like ?" +
+                    " ORDER BY id" +
+                    " LIMIT ?" +
+                    " OFFSET ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -169,6 +193,30 @@ public class UserRepository  {
                 SQL_FIND_FRIENDS_BY_USER_ID,
                 new BeanPropertyRowMapper<>(User.class),
                 new Object[]{srcUserId}
+        );
+    }
+
+    public List<User> findByFirstNameAndLastName(String firstNamePattern, String lastNamePattern) {
+        return jdbcTemplate.query(
+                SQL_FIND_USER_BY_FIRST_NAME_AND_LAST_NAME,
+                new BeanPropertyRowMapper<>(User.class),
+                new String[] {/*'%' + */firstNamePattern + '%', /*'%' + */lastNamePattern + '%'}
+        );
+    }
+
+    public List<User> findByFirstNameAndLastName(String firstNamePattern, String lastNamePattern, Integer limit) {
+        return jdbcTemplate.query(
+                SQL_FIND_USER_BY_FIRST_NAME_AND_LAST_NAME_AND_LIMIT,
+                new BeanPropertyRowMapper<>(User.class),
+                new Object[] {/*'%' + */firstNamePattern + '%', /*'%' + */lastNamePattern + '%', limit}
+        );
+    }
+
+    public List<User> findByFirstNameAndLastName(String firstNamePattern, String lastNamePattern, Integer limit, Integer offset) {
+        return jdbcTemplate.query(
+                SQL_FIND_USER_BY_FIRST_NAME_AND_LAST_NAME_AND_LIMIT_AND_OFFSET,
+                new BeanPropertyRowMapper<>(User.class),
+                new Object[] {/*'%' + */firstNamePattern + '%', /*'%' + */lastNamePattern + '%', limit, offset}
         );
     }
 }

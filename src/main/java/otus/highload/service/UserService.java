@@ -112,4 +112,19 @@ public class UserService {
         List<User> friends = userRepository.findFriendsById(user.getId());
         return friends.stream().map(f -> toUserInfoDto(f, Boolean.TRUE)).collect(Collectors.toList());
     }
+
+    public List<UserInfoDto> findByFirstNameAndLastName(String firstName, String lastName) {
+        List<User> friends = userRepository.findByFirstNameAndLastName(firstName, lastName);
+        return friends.stream().map(f -> toUserInfoDto(f, Boolean.TRUE)).collect(Collectors.toList());
+    }
+
+    public List<UserInfoDto> findByFirstNameAndLastName(String firstName, String lastName, Integer limit) {
+        List<User> friends = userRepository.findByFirstNameAndLastName(firstName, lastName, limit);
+        return friends.stream().map(f -> toUserInfoDto(f, Boolean.TRUE)).collect(Collectors.toList());
+    }
+
+    public List<UserInfoDto> findByFirstNameAndLastName(String firstName, String lastName, Integer limit, Integer offset) {
+        List<User> friends = userRepository.findByFirstNameAndLastName(firstName, lastName, limit, offset);
+        return friends.stream().map(f -> toUserInfoDto(f, Boolean.TRUE)).collect(Collectors.toList());
+    }
 }

@@ -1,15 +1,24 @@
 spring:
   datasource:
 #    url: jdbc:mysql://92.124.137.38:3306/accounts?createDatabaseIfNotExist=true&generateSimpleParameterMetadata=true
-#    username: ssn_user
-#    password: qwe1234
-    url: ${JDBC_DATABASE_URL}
-    username: ${JDBC_DATABASE_USERNAME}
-    password: ${JDBC_DATABASE_PASSWORD}
+    url: jdbc:mysql://192.168.1.82:3306/accounts?createDatabaseIfNotExist=true&generateSimpleParameterMetadata=true&autoReconnect=true
+    username: ssn_user
+    password: qwe1234
+#    url: ${JDBC_DATABASE_URL}
+#    username: ${JDBC_DATABASE_USERNAME}
+#    password: ${JDBC_DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+#      connection-timeout: 600000
+      maximum-pool-size: 100
+#      max-lifetime: 1800000
+#      minimum-idle: 20
+#      validation-timeout: 3000
+#      idle-timeout: 60000
 
   jpa:
-    database-platform: org.hibernate.dialect.MariaDBDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml

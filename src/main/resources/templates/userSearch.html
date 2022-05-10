@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{fragments/header :: head (title='Friends')}">
+    <head th:replace="~{fragments/header :: head (title='Search Users')}">
         <script th:src="@{/webjars/jquery/jquery.min.js}" type="text/javascript"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
         <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" media="all" type="text/css"/>
         <link th:href="@{/css/login.css}" rel="stylesheet" media="all" type="text/css">
-        <title>Friends</title>
+        <title>Search Users</title>
     </head>
     <body>
         <div class="container">
@@ -15,37 +15,34 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <a class="navbar-brand" th:href="@{/profile}">Profile</a>
-                    <a class="navbar-brand" th:href="@{/userList}">User list</a>
+                    <a class="navbar-brand" th:href="@{/friends}">Friends</a>
                     <a class="navbar-brand" th:href="@{/search}">Search</a>
                     <div class="navbar-nav mr-auto"></div>
                     <a class="btn btn-primary" th:href="@{/logout}" role="button">Logout</a>
                 </div>
             </nav>
 
-            <h1>Users</h1>
-            <table class="table">
-                <tr>
-                    <th>Details</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Gender</th>
-                    <th>Interests</th>
-                    <th>City</th>
-                </tr>
-                <tr th:each="friend : ${friends}">
-                    <td><a class="btn btn-primary" th:href="'/userInfo?id=' + ${friend.id}">more</a></td>
-                    <td th:text="${friend.firstName}">first name</td>
-                    <td th:text="${friend.lastName}">last name</td>
-                    <td>
-                        <select th:value="${friend.gender}" readonly>
-                            <option th:disabled="${friend.gender ne 'M'}" th:value="'M'" th:text="Male"></option>
-                            <option th:disabled="${friend.gender ne 'F'}" th:value="'F'" th:text="Female"></option>
-                        </select>
-                    </td>
-                    <td th:text="${friend.interests}">interests</td>
-                    <td th:text="${friend.city}">city</td>
-                </tr>
-            </table>
+            <!--            <div th:if="${#fields.hasAnyErrors()}">-->
+            <!--                <p th:each="err : ${#fields.allErrors()}" th:text="${err}">...</p>-->
+            <!--            </div>-->
+
+            <h1>Search Users</h1>
+            <form name='f' th:action="@{/search}" method='POST'>
+                <input th:type="hidden" th:name="limit" th:value="50"/>
+                <table class="table">
+                    <tr>
+                        <td><label for="firstName">First name:</label></td>
+                        <td><input type="text" name="firstNamePattern" id="firstName"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="lastName">Last name:</label></td>
+                        <td><input type="text" name="lastNamePattern" id="lastName"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input class="btn btn-primary" name="submit" type="submit" value="submit" /></td>
+                    </tr>
+                </table>
+            </form>
         </div>
     </body>
 </html>

@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         //PathRequest.toH2Console(),
                         PathRequest.toStaticResources().atCommonLocations()
                 ).permitAll()
-                .antMatchers("/", "/register"/*, "/login*", "/logout", "/h2-console/**", "/webjars/**", "/css/**"*/).permitAll()
+                .antMatchers("/", "/register"/*, "/search"/*, "/login*", "/logout", "/h2-console/**", "/webjars/**", "/css/**"*/).permitAll()
                 .antMatchers("/user*").hasRole("USER")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/userList").permitAll()
