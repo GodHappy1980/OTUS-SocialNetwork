@@ -1,6 +1,6 @@
 local step = "login";
 credentials = {"username=godhappy&password=qwe1234", "username=anna_kp&password=qwe1234"}
-search_params = {"firstNamePattern=Wing&lastNamePattern=Huff&limit=50", "firstNamePattern=d&lastNamePattern=l&limit=100", "firstNamePattern=a&lastNamePattern=b"}
+search_params = {"firstNamePattern=Wing&lastNamePattern=Huff&limit=50", "firstNamePattern=d&lastNamePattern=l&limit=100", "firstNamePattern=a&lastNamePattern=b&limit=10"}
 
 logfile = io.open("wrk.log", "w");
 
@@ -57,7 +57,7 @@ response = function(status, headers, body)
             debug("ERROR body: " .. body .. "\n")
         end
     elseif step == "search" then
-        if status == 302 then
+        if status == 302 or status == 200 then
             debug("success\n");
         else
             debug("ERROR status: " .. status .."\n")
@@ -65,11 +65,11 @@ response = function(status, headers, body)
         end
         step = "logout"
     else
-        if status ~= 200 and status ~= 302 then
+        if status == 200 or status == 302 then
+            debug("success\n");
+        else
             debug("ERROR status: " .. status .."\n")
             debug("ERROR body: " .. body .. "\n")
-        else
-            debug("success\n");
         end
         step = "login"
         cookie = nil
